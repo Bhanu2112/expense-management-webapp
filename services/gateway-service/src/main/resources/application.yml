@@ -1,0 +1,44 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+      
+  instance:
+    ip-address: true
+    hostname: localhost
+server:
+  port: 9090
+spring:
+  application:
+    name: gateway-service
+
+  cloud:
+    gateway:
+      routes:
+        - id: expense-service
+          uri: lb://EXPENSE-SERVICE
+          predicates:
+             - Path = /expense/**
+        
+#        - id: group-service
+#          uri: lb://GROUP-SERVICE
+#          predicates:
+#            - Path = /group/** 
+#        
+#      - id: reporting-service
+#        uri: lb://REPORTING-SERVICE
+#        predicates:
+#        - Path = /reporting/**
+#        
+#      - id: transaction-service
+#        uri: lb://TRANSACTION-SERVICE
+#        predicates:
+#        - Path = /transaction/**   
+#        
+#        
+#      - id: user-service
+#        uri: lb://USER-SERVICE
+#        predicates:
+#        - Path = /user/**                    
+    discovery:
+      enabled: true
