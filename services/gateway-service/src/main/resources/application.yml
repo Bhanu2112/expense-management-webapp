@@ -16,14 +16,18 @@ spring:
     gateway:
       routes:
         - id: expense-service
-          uri: lb://EXPENSE-SERVICE
+          uri: lb://expense-service
           predicates:
-             - Path = /expense/**
+             - Path=/expense/**
+          filters:
+           - AuthenticationFilter
         
-#        - id: group-service
-#          uri: lb://GROUP-SERVICE
-#          predicates:
-#            - Path = /group/** 
+        - id: group-service
+          uri: lb://GROUP-SERVICE
+          predicates:
+            - Path=/group/** 
+          filters:
+          - AuthenticationFilter
 #        
 #      - id: reporting-service
 #        uri: lb://REPORTING-SERVICE
@@ -36,9 +40,10 @@ spring:
 #        - Path = /transaction/**   
 #        
 #        
-#      - id: user-service
-#        uri: lb://USER-SERVICE
-#        predicates:
-#        - Path = /user/**                    
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/user/**,/auth/**
+                                
     discovery:
       enabled: true
