@@ -23,12 +23,23 @@ public class GroupService {
 
 	@Autowired
 	private GroupRepository groupRepository;
-	
+
 	@Autowired
 	private GroupMemberRepository memberRepository;
 
 //	@Autowired
 //	private GroupMemberService memberService;
+
+	/*
+	 * The `createGroup` method initializes a new `Group` entity and calculates each
+	 * member's share amount based on the total amount and number of members. It
+	 * creates `GroupMember` entities for each member ID provided, sets their
+	 * details (user ID, share amount, payment status), and associates them with the
+	 * group. The method then assigns the list of members to the group, sets the
+	 * group status to `PENDING`, and saves the group to the repository. Finally, it
+	 * returns a success message indicating that the group was created and requests
+	 * were sent to the members.
+	 */
 
 	public String createGroup(GroupRequest groupRequest) {
 
@@ -42,7 +53,7 @@ public class GroupService {
 		group.setAmount(groupRequest.getAmount());
 		group.setUserId(groupRequest.getUserId());
 
-		List<GroupMember> groupMembers  = new ArrayList<>();
+		List<GroupMember> groupMembers = new ArrayList<>();
 //		= groupRequest.getMemberIds().stream().map(id -> {
 //
 //			GroupMember member = new GroupMember();
@@ -55,54 +66,44 @@ public class GroupService {
 //			return member;
 //			
 //		}).collect(Collectors.toSet());
-		
+
 		List<Long> memberids = groupRequest.getMemberIds();
-		
-		for(int i=0;i<memberids.size();i++) {
+
+		for (int i = 0; i < memberids.size(); i++) {
 			GroupMember member = new GroupMember();
-			
-			
+
 			member.setUserId(memberids.get(i));
 			member.setShareAmount(share);
 
 			member.setPaymentStatus(PaymentStatus.PENDING);
 			members.add(member);
 			member.setGroup(group);
-			
+
 			groupMembers.add(member);
 		}
-		
+
 		group.setGroupMembers(groupMembers);
 		group.setStatus(GroupStatus.PENDING);
 		groupRepository.save(group);
 		return "Group was created and sent request to group members";
 	}
-	
-	
-	
-	public List<Group> getAllGroups(){
-		
-		
-		System.out.println("insdiee");
-		
+
+	public List<Group> getAllGroups() {
+
 		return groupRepository.findAll();
 	}
-	
-	
-	public List<Group> getAllGroupsOfUser(Long userId){
+
+	public List<Group> getAllGroupsOfUser(Long userId) {
 		return groupRepository.findAllByUserId(userId);
 	}
-	
-	public List<Group>  getGroupsForMember(Long memberId) {
-		System.out.println("get groups of member");
-	 return memberRepository.findGroupsByMemberId(memberId);
+
+	public List<Group> getGroupsForMember(Long memberId) {
+
+		return memberRepository.findGroupsByMemberId(memberId);
 	}
-	
-	
+
 	public GroupMember getGM(Long memberId) {
 		return memberRepository.findById(memberId).get();
 	}
-	
-	
 
 }
