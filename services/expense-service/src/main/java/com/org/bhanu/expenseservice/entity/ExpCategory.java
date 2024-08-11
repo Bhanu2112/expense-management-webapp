@@ -33,6 +33,7 @@ public class ExpCategory {
 	
 	private Long userId;
 	
+	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "category",fetch = FetchType.EAGER)
 	private Set<ExpRecord> expRecords;
 

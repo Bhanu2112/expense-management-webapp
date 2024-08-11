@@ -1,4 +1,4 @@
-package com.org.bhanu.expenseservice.entity;
+ package com.org.bhanu.expenseservice.entity;
 
 import java.sql.Date;
 

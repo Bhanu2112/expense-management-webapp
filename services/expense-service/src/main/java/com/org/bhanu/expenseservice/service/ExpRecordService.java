@@ -1,6 +1,7 @@
 package com.org.bhanu.expenseservice.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,16 @@ public class ExpRecordService {
 		return recordRepository.findAllByUserId(userId);
 	}
 	
-	
+	public List<ExpRecord> getRecordsByMonthAndYear(int month, int year,Long memberId) {
+		List<ExpRecord> monthlyRecords = recordRepository.findByMonthAndYear(month, year,memberId);
+		
+		
+		monthlyRecords.stream().collect(Collectors.groupingBy(ExpRecord::getDate)).entrySet()
+		.forEach(e -> System.out.println( e.getKey()));
+        
+        
+        return recordRepository.findByMonthAndYear(month, year,memberId);
+        
+    }
 
 }
