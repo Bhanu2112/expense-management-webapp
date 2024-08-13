@@ -5,6 +5,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { ManageexpComponent } from './pages/manageexp/manageexp.component';
 import { AccountsComponent } from './pages/accounts/accounts.component';
 import { CategoriesComponent } from './pages/categories/categories.component';
+import { BudgetsComponent } from './pages/budgets/budgets.component';
 
 export const routes: Routes = [
   {
@@ -30,5 +31,9 @@ export const routes: Routes = [
   {
     path : 'categories',
     component : CategoriesComponent
+  },
+  {
+    path : 'budgets',
+    component : BudgetsComponent
   }
 ];

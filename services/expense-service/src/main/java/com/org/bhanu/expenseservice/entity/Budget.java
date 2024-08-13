@@ -2,11 +2,15 @@ package com.org.bhanu.expenseservice.entity;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinColumns;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,7 +33,11 @@ public class Budget {
 	private Date createdAt;
 	private Date updateAt;
 	
+	@JsonBackReference
 	@ManyToOne
-	@JoinColumn(name="budgetmanager_id")
+	@JoinColumns({
+		@JoinColumn(name="monthYear",referencedColumnName = "monthYear"),
+		@JoinColumn(name = "userId",referencedColumnName = "userId")
+	})
 	private BudgetManager budgetManager;
 }

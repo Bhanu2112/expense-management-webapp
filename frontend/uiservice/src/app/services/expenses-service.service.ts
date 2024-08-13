@@ -12,11 +12,11 @@ export class ExpensesServiceService {
   constructor(private http :HttpClient) { }
 
   getAllAccounts() :Observable<Account[]>{
-    return this.http.get<Account[]>('http://localhost:8081/accounts/2');
+    return this.http.get<Account[]>('http://localhost:8081/accounts/1');
   }
 
   getAllCategories():Observable<Category[]>{
-    return this.http.get<Category[]>('http://localhost:8081/categories/2');
+    return this.http.get<Category[]>('http://localhost:8081/categories/1');
   }
 
   addCategory(cat:Category){
