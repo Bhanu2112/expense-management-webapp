@@ -98,15 +98,17 @@
 
 
               <div>
-                <div *ngFor="let a of [1,2,3,4,5,6,7,8,9]">
-                  <div class="m-1 block flex justify-between  border border-gray-700 p-3 rounded-lg shadow">
-                    <p class="text-wrap">300 pending in Journey group</p>
-                    <button class="mx-4">Check</button>
+                <div *ngFor="let rs of reqsettel">
+                  <div class="m-1 block flex justify-between items-center border border-home-bg p-3 rounded-lg shadow">
+                    <p class="text-wrap">{{rs.message}}</p>
+                    <div class="m-1">
+                      <button [routerLink]="['/viewgroup']" [queryParams]="{id:rs.groupId}" *ngIf="rs.type==='Settlement'" class=" border border-home-bg px-3 py-1 rounded-lg hover:bg-green-600 font-sm">Check</button>
+                      <button [routerLink]="['/viewgroup']" [queryParams]="{id:rs.groupId}" *ngIf="rs.type==='Request'"  class="border border-home-bg px-3 py-1 rounded-lg hover:bg-green-600 font-sm">Pay</button>
+                    </div>
+
+
                   </div>
-                  <div class="m-1 block flex  justify-between  border border-gray-700 p-3 rounded-lg shadow">
-                    <p class="text-wrap">500 requested from Journey group</p>
-                    <button class="mx-4">Pay</button>
-                  </div>
+
                 </div>
               </div>
             </div>
@@ -245,10 +247,5 @@
           </div>
         </div>
       </div>
-
-
-
-
-
 
   </div>

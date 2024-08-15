@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { SplitserviceService } from '../../services/splitservice.service';
 import { RouterLink } from '@angular/router';
+import { Reqsettel } from '../../models/reqsettel';
 
 @Component({
   selector: 'app-billsplitter',
@@ -16,6 +17,8 @@ export class BillsplitterComponent {
     groups:any = []
     activeGroups:any = []
     closedGroups:any = []
+    reqsettel:Reqsettel[] = []
+
     constructor(private splitService:SplitserviceService){
 
     }
@@ -38,9 +41,18 @@ export class BillsplitterComponent {
 
         // this.closedGroups = this.activeGroups
       })
-      console.log(this.groups);
-
+      this.getRequestsAndSettlements();
     }
+
+
+    getRequestsAndSettlements(){
+      this.splitService.getAllRequestsAndSettlementsOfMember(this.appUserId).subscribe(data =>{
+        this.reqsettel = data;
+        console.log(this.reqsettel);
+
+      })
+    }
+
 
     getGroupsData() {
       // Use this method to access groups data after it has been populated
