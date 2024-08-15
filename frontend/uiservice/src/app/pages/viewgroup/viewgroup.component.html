@@ -1,0 +1,110 @@
+<div class="mt-20">
+  <div class="m-4 items-center justify-center flex">
+
+    <div class="lg:w-[800px] md:w-[700px] w-[380px] block border border-gray-700 shadow rounded-lg p-4 bg-home-bg">
+      <div class="grid grid-cols-3 ">
+        <div class="flex flex-col items-center justify-center col-span-3 md:col-span-2">
+          <h3 class="font-bold  md:text-2xl  mb-2">{{group.groupName}} </h3>
+          <p class="text-wrap text-[12px] md:text-[15px] w-80 text-center mb-3">{{group.grpPurpose}}</p>
+        </div>
+        <div class="flex items-center justify-center col-span-3 md:col-span-1">
+          <div class="flex  md:flex-col ">
+            <div class="flex items-center me-8 sm:me-0 mb-2">
+              <p class="font-semibold">Status : </p>
+              <button type="button"
+                class="  bg-green-100 border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100  rounded-lg text-sm px-2 py-1 ms-4  dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 lowercase">{{group.status}}</button>
+            </div>
+            <div class="flex items-center mb-2">
+              <p class="font-semibold">Amount : <span>{{group.amount  }}</span>  </p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+  </div>
+  <!-- summary  -->
+
+  <div class="m-4 items-center justify-center flex">
+    <div class="mt-6 lg:w-[800px] md:w-[700px] w-[380px] block border border-home-bg shadow rounded-lg p-4 ">
+      <p class="font-medium">Summary ...</p>
+      <div>
+        <p>The name of the group is <span class="uppercase font-medium">{{group.groupName}}</span></p>
+        <p>The purpose of this group is <span class="font-medium">{{group.grpPurpose}}</span> </p>
+        <p>The total <span class="font-medium">amount</span> spent by the group is <span
+            class="font-medium">{{group.amount}}</span> , covering all the purchases or expenses</p>
+        <p>The group's current status is <span class="font-medium lowercase">{{group.status}}</span> </p>
+
+        <p>So far, <span class="font-medium">{{group.payedMembers}}</span> payments have been made by the members.</p>
+        <p>There are <span class="font-medium">{{count}}</span> members actively participating in this group.</p>
+        <p>Your individual contribution for this shopping event is <span class="font-medium">500</span> .</p>
+        <p>Your payment status is <span class="font-medium">Pending</span></p>
+      </div>
+
+    </div>
+  </div>
+
+
+
+  <!-- group members  -->
+  <div class="m-4 items-center justify-center flex">
+    <div class="mt-2 w-full md:w-[1000px] block   p-4 ">
+      <p class="font-medium m-3">
+        Group members
+      </p>
+
+      <div class="">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-2 gap-2">
+
+         @for (i of [1,2,3,4,5]; track $index) {
+          <div class="items-center justify-center flex ">
+            <div class="w-[600px] block border border-home-bg p-4 shadow rounded-lg">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <p>Bhanu</p>
+                    <p>id : bhanu1234# </p>
+                    <p>Share : 600</p>
+                  </div>
+                  <div>
+                    <p>Status : <button type="button"
+                      class="  bg-green-100 border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100  rounded-lg text-sm px-2 py-1 ms-4  dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">pending</button></p>
+                    <p class="mt-4">
+                      <button type="button"
+                      class="  bg-green-100 border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100  rounded-lg text-sm px-2 py-1 ms-4  dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">mark completed</button>
+                    </p>
+                  </div>
+                </div>
+            </div>
+          </div>
+         }
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- comments and updates -->
+
+  <div class="items-center justify-center flex m-4 ">
+    <div class=" w-full md:w-[800px] block p-4 ">
+
+      <p class="font-medium text-center"> Comments and updates </p>
+
+      <div class="m-4">
+        @for (i of [1,2,3,4]; track $index) {
+          <p class="text-center m-1">In Angular, you shouldn't concatenate route URLs and query parameters</p>
+        }
+      </div>
+      </div>
+  </div>
+
+</div>

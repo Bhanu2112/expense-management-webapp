@@ -52,32 +52,29 @@ public class GroupService {
 		group.setGroupName(groupRequest.getGroupName());
 		group.setAmount(groupRequest.getAmount());
 		group.setUserId(groupRequest.getUserId());
+		
+		group.setPayedMembers(1);
 
 		List<GroupMember> groupMembers = new ArrayList<>();
-//		= groupRequest.getMemberIds().stream().map(id -> {
-//
-//			GroupMember member = new GroupMember();
-//			member.setUserId(id);
-//			member.setShareAmount(share);
-//
-//			member.setPaymentStatus(PaymentStatus.PENDING);
-//			members.add(member);
-//			member.setGroup(group);
-//			return member;
-//			
-//		}).collect(Collectors.toSet());
 
 		List<Long> memberids = groupRequest.getMemberIds();
 
 		for (int i = 0; i < memberids.size(); i++) {
 			GroupMember member = new GroupMember();
-
+			
+			if(memberids.get(i)==group.getUserId()) {
+				member.setPaymentStatus(PaymentStatus.COMPLETED);
+			}else {
+				member.setPaymentStatus(PaymentStatus.PENDING);
+			}
 			member.setUserId(memberids.get(i));
 			member.setShareAmount(share);
 
-			member.setPaymentStatus(PaymentStatus.PENDING);
+		
 			members.add(member);
 			member.setGroup(group);
+			
+			
 
 			groupMembers.add(member);
 		}
@@ -87,7 +84,14 @@ public class GroupService {
 		groupRepository.save(group);
 		return "Group was created and sent request to group members";
 	}
+	
+	
+	public Group findGroup(Long groupId) {
+		return groupRepository.findById(groupId).get();
+	}
 
+	
+	
 	public List<Group> getAllGroups() {
 
 		return groupRepository.findAll();
@@ -98,7 +102,6 @@ public class GroupService {
 	}
 
 	public List<Group> getGroupsForMember(Long memberId) {
-
 		return memberRepository.findGroupsByMemberId(memberId);
 	}
 

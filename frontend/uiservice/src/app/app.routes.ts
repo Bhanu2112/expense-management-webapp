@@ -6,6 +6,8 @@ import { ManageexpComponent } from './pages/manageexp/manageexp.component';
 import { AccountsComponent } from './pages/accounts/accounts.component';
 import { CategoriesComponent } from './pages/categories/categories.component';
 import { BudgetsComponent } from './pages/budgets/budgets.component';
+import { BillsplitterComponent } from './pages/billsplitter/billsplitter.component';
+import { ViewgroupComponent } from './pages/viewgroup/viewgroup.component';
 
 export const routes: Routes = [
   {
@@ -35,5 +37,13 @@ export const routes: Routes = [
   {
     path : 'budgets',
     component : BudgetsComponent
+  },
+  {
+    path:'split',
+    component : BillsplitterComponent
+  },
+  {
+    path:'viewgroup',
+    component : ViewgroupComponent
   }
 ];

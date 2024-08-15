@@ -38,9 +38,15 @@ public class Group {
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "group",fetch = FetchType.EAGER)
 	private List<GroupMember> groupMembers = new ArrayList<>();
 	@Enumerated(EnumType.STRING)
-	private GroupStatus Status;
+	private GroupStatus status;
 	private Long userId;
 	
+	private int payedMembers;
+	
+	private String grpPurpose;
+	
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<Comment> comments;
 	
 	
 	
