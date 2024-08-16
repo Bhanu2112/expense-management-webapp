@@ -48,12 +48,21 @@
 
  <!-- your payment status  -->
 
- <div class="items-center justify-center flex ">
+ <div class="m-3 items-center justify-center flex ">
   <div class="block border border-home-bg rounded-lg p-5 lg:w-[800px] md:w-[700px] w-[380px]">
-      <div class="items-center justify-center flex">
-        <p>Heads up! You still have a pending payment in this group. Clearing this up will help keep the balances fair and square for everyone. Please settle it as soon as you can.</p>
-        <button type="button" class="text-white bg-red-800 hover:bg-red-600 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Complete </button>
-        <button type="button" class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Green</button>
+      <div class="items-center justify-center flex flex-col md:flex-row">
+
+        <div *ngIf="myMember.paymentStatus === 'PENDING' " class="items-center justify-center flex flex-col md:flex-row">
+          <p class="mb-2">Heads up! You still have a pending payment in this group. Clearing this up will help keep the balances fair and square for everyone. Please settle it as soon as you can.</p>
+          <button  type="button" class="mx-auto text-white bg-red-800 hover:bg-red-600 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Complete </button>
+
+        </div>
+        <div *ngIf="myMember.paymentStatus === 'COMPLETED' " class="items-center justify-center flex flex-col md:flex-row">
+          <p class="mb-2">Payment completed! Your account is now settled in this group. We appreciate your prompt action. You're all set—no outstanding dues!</p>
+          <button  type="button" class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Done</button>
+        </div>
+
+
       </div>
   </div>
  </div>

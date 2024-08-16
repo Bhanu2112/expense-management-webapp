@@ -1,5 +1,7 @@
 package com.org.bhanu.userservice.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +27,11 @@ public class UserController {
 	@GetMapping("/finduser/{userId}")
 	public AppUser findUser(@PathVariable Long userId) {
 		return userService.getUser(userId);
+	}
+	
+	@GetMapping("/allusers")
+	public List<AppUser> findAllUsers(){
+		return userService.getAllUsers();
 	}
 
 }

@@ -10,6 +10,7 @@ import java.util.stream.Stream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.org.bhanu.expenseservice.dao.RequestsAndSettlementDAO;
 import com.org.bhanu.expenseservice.entity.split.Group;
 import com.org.bhanu.expenseservice.entity.split.GroupMember;
 import com.org.bhanu.expenseservice.enums.GroupStatus;
@@ -52,7 +53,7 @@ public class GroupService {
 		group.setGroupName(groupRequest.getGroupName());
 		group.setAmount(groupRequest.getAmount());
 		group.setUserId(groupRequest.getUserId());
-		
+
 		group.setPayedMembers(1);
 
 		List<GroupMember> groupMembers = new ArrayList<>();
@@ -61,20 +62,17 @@ public class GroupService {
 
 		for (int i = 0; i < memberids.size(); i++) {
 			GroupMember member = new GroupMember();
-			
-			if(memberids.get(i)==group.getUserId()) {
+
+			if (memberids.get(i) == group.getUserId()) {
 				member.setPaymentStatus(PaymentStatus.COMPLETED);
-			}else {
+			} else {
 				member.setPaymentStatus(PaymentStatus.PENDING);
 			}
 			member.setUserId(memberids.get(i));
 			member.setShareAmount(share);
 
-		
 			members.add(member);
 			member.setGroup(group);
-			
-			
 
 			groupMembers.add(member);
 		}
@@ -84,14 +82,11 @@ public class GroupService {
 		groupRepository.save(group);
 		return "Group was created and sent request to group members";
 	}
-	
-	
+
 	public Group findGroup(Long groupId) {
 		return groupRepository.findById(groupId).get();
 	}
 
-	
-	
 	public List<Group> getAllGroups() {
 
 		return groupRepository.findAll();
@@ -107,6 +102,43 @@ public class GroupService {
 
 	public GroupMember getGM(Long memberId) {
 		return memberRepository.findById(memberId).get();
+	}
+
+	public List<RequestsAndSettlementDAO> getAllRequestsAndSettlements(Long memberId) {
+
+		List<Group> memberGroups = getGroupsForMember(memberId);
+
+		List<RequestsAndSettlementDAO> andSettlementDAOs = new ArrayList<>();
+
+		for (Group g : memberGroups) {
+			RequestsAndSettlementDAO settlementDAO = new RequestsAndSettlementDAO();
+
+			if (g.getUserId() == memberId) {
+				
+				double pendingAmount =	g.getGroupMembers().stream()
+							.filter(gm -> gm.getPaymentStatus().equals(PaymentStatus.PENDING))
+							.mapToDouble(GroupMember::getShareAmount)
+							.sum();
+			settlementDAO.setGroupId(g.getId());
+			settlementDAO.setType("Settlement");
+			settlementDAO.setMessage(String.format("%.2f", pendingAmount)  +" pending settlement in "+g.getGroupName());
+			andSettlementDAOs.add(settlementDAO);
+
+			} else {
+
+				
+				GroupMember gm = g.getGroupMembers().stream().filter(gm1 -> gm1.getUserId()==memberId).findFirst().orElse(null);
+				if(gm.getPaymentStatus().equals(PaymentStatus.PENDING) && gm!=null) {
+					settlementDAO.setGroupId(g.getId());
+					settlementDAO.setType("Request");
+					settlementDAO.setMessage(String.format("%.2f",gm.getShareAmount()) +" requested from "+g.getGroupName());
+					andSettlementDAOs.add(settlementDAO);
+				}
+			}
+
+		}
+
+		return andSettlementDAOs;
 	}
 
 }

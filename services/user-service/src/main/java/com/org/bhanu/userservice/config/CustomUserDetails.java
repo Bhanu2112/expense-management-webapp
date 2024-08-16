@@ -13,7 +13,7 @@ public class CustomUserDetails implements UserDetails {
 	private String password;
 	
 	public CustomUserDetails(AppUser appUser) {
-		this.username = appUser.getUsername();
+		this.username = appUser.getEmail();
 		this.password = appUser.getPassword();
 	}
 

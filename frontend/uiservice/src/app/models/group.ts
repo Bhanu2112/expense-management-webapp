@@ -10,4 +10,5 @@ export class Group {
   payedMembers!: number;
   grpPurpose!: string;
   comments!:Comment[]
+  array: any;
 }

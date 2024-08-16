@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.org.bhanu.expenseservice.dao.RequestsAndSettlementDAO;
 import com.org.bhanu.expenseservice.entity.split.Group;
 import com.org.bhanu.expenseservice.entity.split.GroupMember;
 import com.org.bhanu.expenseservice.request.GroupRequest;
@@ -56,6 +57,12 @@ public class GroupController {
 		return groupService.findGroup(groupId);
 	}
 	
+	
+	
+	@GetMapping("/reqsettlel/{memberId}")
+	public List<RequestsAndSettlementDAO> getAllRequestsAndSettlements(@PathVariable Long memberId){
+		return groupService.getAllRequestsAndSettlements(memberId);
+	}
 	
 	
 

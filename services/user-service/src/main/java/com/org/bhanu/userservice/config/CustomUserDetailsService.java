@@ -24,7 +24,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 		// TODO Auto-generated method stub
 		
 		
-	 Optional<AppUser> appUser = appUserRepository.findByUsername(username);
+	 Optional<AppUser> appUser = appUserRepository.findByEmail(username);
 		return appUser.map(CustomUserDetails::new).orElseThrow(() -> new UserNotFoundException("user not found"));
 	}
 

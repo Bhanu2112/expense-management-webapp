@@ -43,10 +43,10 @@ public class AuthController {
 	@PostMapping("/token")
 	public String getToken(@RequestBody AuthRequest authRequest) throws UserNotFoundException {
 		
-		Authentication authentication =  authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
+		Authentication authentication =  authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
 		
 		if(authentication.isAuthenticated()) {
-			return appUserService.generateToken(authRequest.getUsername());
+			return appUserService.generateToken(authRequest.getEmail());
 		}else {
 			throw new UserNotFoundException("Password or username might wront");
 		}
